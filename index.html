@@ -4,143 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ระบบสุ่มเลขรางวัล</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background: #f3e5f5;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Navbar */
-    nav {
-      background-color: #6a1b9a;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    nav .brand {
-      font-size: 1.4rem;
-      font-weight: bold;
-    }
-
-    nav .menu a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 1rem;
-    }
-
-    nav .menu a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .box, .history {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 500px;
-      box-shadow: 0 4px 12px rgba(106, 27, 154, 0.2);
-      border: 2px solid #ce93d8;
-    }
-
-    .number {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #8e24aa;
-    }
-
-    button {
-      background-color: #7b1fa2;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background-color: #6a1b9a;
-    }
-
-    #nextDraw {
-      margin-top: 10px;
-      font-size: 1rem;
-      color: #5e35b1;
-    }
-
-    table {
-      width: 100%;
-      margin-top: 10px;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid #ce93d8;
-      padding: 8px;
-    }
-
-    th {
-      background: #e1bee7;
-      color: #4a148c;
-    }
-
-    td {
-      color: #6a1b9a;
-    }
-
-    footer {
-      background-color: #6a1b9a;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav .menu {
-        margin-top: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      nav .menu a {
-        margin-left: 0;
-      }
-
-      .box, .history {
-        width: 90%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <nav>
-    <div class="brand">𓆩♡𓆪สุ่มเลขรางวัล𓆩♡𓆪</div>
+    <div class="brand">ระบบสุ่มเลขรางวัล</div>
     <div class="menu">
-      <a href="#">➠หน้าแรก</a>
-      <a href="#">➠เกี่ยวกับ</a>
-      <a href="#">➠ติดต่อ</a>
+      <a href="#">หน้าแรก</a>
+      <a href="#">เกี่ยวกับ</a>
+      <a href="#">ติดต่อ</a>
     </div>
   </nav>
 
@@ -148,22 +21,23 @@
     <div class="box">
       <h2>งวดวันที่: <span id="drawDate">--</span></h2>
       <p id="nextDraw">งวดถัดไป: --</p>
+
       <div>
-        <h3>≫รางวัล 2 ตัว≪</h3>
+        <h3>รางวัล 2 ตัว</h3>
         <div class="number" id="twoDigit">--</div>
 
-        <h3>≫รางวัล 3 ตัว≪</h3>
+        <h3>รางวัล 3 ตัว</h3>
         <div class="number" id="threeDigit">--</div>
 
-        <h3>≫รางวัล 4 ตัว≪</h3>
+        <h3>รางวัล 4 ตัว</h3>
         <div class="number" id="fourDigit">--</div>
       </div>
 
-      <button onclick="drawNumbers()">✮สุ่มรางวัล✮</button>
+      <button onclick="drawNumbers()">สุ่มรางวัล</button>
     </div>
 
     <div class="history">
-      <h2>𓆩⟡𓆪ประวัติการออกรางวัล𓆩⟡𓆪</h2>
+      <h2>ประวัติการออกรางวัล</h2>
       <table>
         <thead>
           <tr>
@@ -182,78 +56,6 @@
     <p>&copy; 2025 ระบบสุ่มเลขรางวัล | จัดทำเพื่อการศึกษา 💜</p>
   </footer>
 
-  <script>
-    // ฟังก์ชันคำนวณวันงวดปัจจุบัน (1 หรือ 16)
-    function getCurrentDrawDate() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-      const date = today.getDate();
-
-      if (date >= 16) {
-        return new Date(year, month, 16);
-      } else {
-        return new Date(year, month, 1);
-      }
-    }
-
-    // ฟังก์ชันคำนวณวันงวดถัดไป
-    function getNextDrawDate(date) {
-      const day = date.getDate();
-      const month = date.getMonth();
-      const year = date.getFullYear();
-
-      let nextDate;
-      if (day === 1) {
-        nextDate = new Date(year, month, 16);
-      } else {
-        const nextMonth = month === 11 ? 0 : month + 1;
-        const nextYear = month === 11 ? year + 1 : year;
-        nextDate = new Date(nextYear, nextMonth, 1);
-      }
-      return nextDate;
-    }
-
-    function formatDate(date) {
-      return date.toLocaleDateString('th-TH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    }
-
-    // ตั้งค่าระบบเริ่มต้น
-    let currentDrawDate = getCurrentDrawDate();
-
-    function drawNumbers() {
-      const twoDigit = Math.floor(Math.random() * 100).toString().padStart(2, '0');
-      const threeDigit = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-      const fourDigit = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-
-      document.getElementById('twoDigit').innerText = twoDigit;
-      document.getElementById('threeDigit').innerText = threeDigit;
-      document.getElementById('fourDigit').innerText = fourDigit;
-
-      const formattedDate = formatDate(currentDrawDate);
-      const nextDate = formatDate(getNextDrawDate(currentDrawDate));
-      document.getElementById('drawDate').innerText = formattedDate;
-      document.getElementById('nextDraw').innerText = 'งวดถัดไป: ' + nextDate;
-
-      const historyRow = `
-        <tr>
-          <td>${formattedDate}</td>
-          <td>${twoDigit}</td>
-          <td>${threeDigit}</td>
-          <td>${fourDigit}</td>
-        </tr>
-      `;
-      document.getElementById('historyTable').innerHTML =
-        historyRow + document.getElementById('historyTable').innerHTML;
-
-      // อัปเดตวันงวดถัดไป
-      currentDrawDate = getNextDrawDate(currentDrawDate);
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
